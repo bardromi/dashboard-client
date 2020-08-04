@@ -1,11 +1,29 @@
 import React from 'react';
+import Login from './components/Login.tsx';
 
-function App() {
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect,
+} from 'react-router-dom';
+
+
+const App = () => {
   return (
-    <div className="App">
-        <h1>Hello</h1>
-    </div>
-  );
+    <Router>
+      <Switch>
+        <Route exact path="/">
+          <Redirect to="/login" />
+        </Route>
+        <Route path="/login">
+          <Login />
+        </Route>
+      </Switch>
+    </Router>
+  )
 }
+
+
 
 export default App;
