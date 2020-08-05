@@ -27,12 +27,12 @@ const LoginSelector = ({ text, getDataAction }) => {
         (async function getData() {
             const list = await getDataAction();
             setList(list);
-        })()
-    })
+        })();
+    },[getDataAction, list]);
 
     const handleFormChange = event => {
         setName(event.target.value);
-    }
+    };
 
     return (
         <FormControl variant="outlined" className={classes.formControl} fullWidth={true}>
