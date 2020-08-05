@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { FormControl, InputLabel, Select, MenuItem } from '@material-ui/core';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 
@@ -18,16 +18,28 @@ const useStyles = makeStyles((theme) =>
 );
 
 
-const LoginSelector = ({ list, value, handleFormChange, name, text }) => {
+const LoginSelector = ({ text, getDataAction }) => {
     const classes = useStyles();
+    const [name, setName] = useState("");
+    const [list, setList] = useState([]);
+
+    useEffect(() => {
+        (async function getData() {
+            const list = await getDataAction();
+            setList(list);
+        })()
+    })
+
+    const handleFormChange = event => {
+        setName(event.target.value);
+    }
 
     return (
         <FormControl variant="outlined" className={classes.formControl} fullWidth={true}>
             <InputLabel>{text}</InputLabel>
             <Select
-                name={name}
                 onChange={handleFormChange}
-                value={value}
+                value={name}
             >
                 {
                     list.map(el => (

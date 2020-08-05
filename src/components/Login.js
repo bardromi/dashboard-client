@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 import { Grid, Button, Typography } from '@material-ui/core';
 import LoginSelector from './LoginSelector';
@@ -22,33 +22,6 @@ const useStyles = makeStyles((theme) =>
 const Login = () => {
     const classes = useStyles();
 
-    const [state, setstate] = useState({ desk: "", role: "" })
-    const [desks, setDesks] = useState([]);
-    const [roles, setRoles] = useState([]);
-
-    useEffect(() => {
-        (async function getData() {
-            const desks = await getDesks();
-            setDesks(desks);
-        })()
-    }, [desks])
-
-    useEffect(() => {
-        (async function getData() {
-            const desks = await getRoles();
-            setRoles(desks);
-        })()
-    }, [roles])
-
-    const handleFormChange = event => {
-        setstate({
-            ...state,
-            [event.target.name]: event.target.value
-        })
-    }
-
-    const { desk, role } = state;
-
     return (
         <Grid
             container
@@ -63,20 +36,14 @@ const Login = () => {
             </Grid>
             <Grid item xs={12}>
                 <LoginSelector
-                    list={desks}
-                    name="desk"
-                    value={desk}
-                    handleFormChange={handleFormChange}
                     text="בחר שולחן"
+                    getDataAction={getDesks}
                 />
             </Grid>
             <Grid item xs={12}>
                 <LoginSelector
-                    list={roles}
-                    name="role"
-                    value={role}
-                    handleFormChange={handleFormChange}
                     text="בחר תפקיד"
+                    getDataAction={getRoles}
                 />
             </Grid>
             <Grid item>
