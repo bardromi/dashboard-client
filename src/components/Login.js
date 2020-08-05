@@ -47,12 +47,14 @@ const Login = () => {
             </Grid>
             <Grid item xs={12}>
                 <LoginSelector
+                    name="desk"
                     text="בחר שולחן"
                     getDataAction={getDesks}
                 />
             </Grid>
             <Grid item xs={12}>
                 <LoginSelector
+                    name="role"
                     text="בחר תפקיד"
                     getDataAction={getRoles}
                 />

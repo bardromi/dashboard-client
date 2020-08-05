@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from "react-redux";
 import { FormControl, InputLabel, Select, MenuItem } from '@material-ui/core';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
+import { setDropDownSelector } from '../actions/user.actions';
 
 const useStyles = makeStyles((theme) =>
     createStyles({
@@ -18,9 +20,12 @@ const useStyles = makeStyles((theme) =>
 );
 
 
-const LoginSelector = ({ text, getDataAction }) => {
+const LoginSelector = ({ name, text, getDataAction }) => {
     const classes = useStyles();
-    const [name, setName] = useState("");
+
+    const dispatch = useDispatch();
+    const value = useSelector(state => state.user[name])
+
     const [list, setList] = useState([]);
 
     useEffect(() => {
@@ -28,10 +33,10 @@ const LoginSelector = ({ text, getDataAction }) => {
             const list = await getDataAction();
             setList(list);
         })();
-    },[getDataAction, list]);
+    }, [getDataAction, list]);
 
     const handleFormChange = event => {
-        setName(event.target.value);
+        dispatch(setDropDownSelector(name, event.target.value));
     };
 
     return (
@@ -39,7 +44,7 @@ const LoginSelector = ({ text, getDataAction }) => {
             <InputLabel>{text}</InputLabel>
             <Select
                 onChange={handleFormChange}
-                value={name}
+                value={value || ''}
             >
                 {
                     list.map(el => (

@@ -1,1 +1,2 @@
 export const SET_LOGIN = 'SET_LOGIN';
+export const SET_DROPDOWN_SELECTOR = 'SET_DROPDOWN_SELECTOR';
