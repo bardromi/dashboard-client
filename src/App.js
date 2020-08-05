@@ -1,5 +1,5 @@
 import React from 'react';
-import Login from './components/Login.tsx';
+import Login from './components/Login';
 
 import {
   BrowserRouter as Router,
