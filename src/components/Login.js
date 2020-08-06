@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useSelector, useDispatch } from "react-redux";
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 import { Grid, Button, Typography } from '@material-ui/core';
 import LoginSelector from './LoginSelector';
 import { getDesks, getRoles } from '../MOCK';
+import { loginUser } from '../actions/user.actions';
 
 const useStyles = makeStyles((theme) =>
     createStyles({
@@ -22,6 +24,24 @@ const useStyles = makeStyles((theme) =>
 const Login = () => {
     const classes = useStyles();
 
+    const dispatch = useDispatch();
+    const isLoggedIn = useSelector(state => state.user.isLoggedIn);
+    const desk = useSelector(state => state.user.desk);
+    const role = useSelector(state => state.user.role);
+
+    const [submitClicked, setSubmitClicked] = useState(false);
+
+    const onSubmit = () => {
+        if (desk && role) {
+            dispatch(loginUser());
+            setSubmitClicked(false);
+        } else {
+            setSubmitClicked(true);
+        }
+    }
+
+    console.log("isLoggedIn", isLoggedIn);
+
     return (
         <Grid
             container
@@ -36,18 +56,22 @@ const Login = () => {
             </Grid>
             <Grid item xs={12}>
                 <LoginSelector
+                    name="desk"
                     text="בחר שולחן"
                     getDataAction={getDesks}
+                    submitClicked={submitClicked}
                 />
             </Grid>
             <Grid item xs={12}>
                 <LoginSelector
+                    name="role"
                     text="בחר תפקיד"
                     getDataAction={getRoles}
+                    submitClicked={submitClicked}
                 />
             </Grid>
             <Grid item>
-                <Button className={classes.button} size="large" color="primary" variant="contained" fullWidth={true}>
+                <Button className={classes.button} size="large" color="primary" variant="contained" fullWidth={true} onClick={onSubmit}>
                     התחבר
                 </Button>
             </Grid>

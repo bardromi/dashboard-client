@@ -1,5 +1,7 @@
 import React from 'react';
+import { Provider } from 'react-redux';
 import Login from './components/Login';
+import store from './store';
 
 import {
   BrowserRouter as Router,
@@ -11,16 +13,18 @@ import {
 
 const App = () => {
   return (
-    <Router>
-      <Switch>
-        <Route exact path="/">
-          <Redirect to="/login" />
-        </Route>
-        <Route path="/login">
-          <Login />
-        </Route>
-      </Switch>
-    </Router>
+    <Provider store={store}>
+      <Router>
+        <Switch>
+          <Route exact path="/">
+            <Redirect to="/login" />
+          </Route>
+          <Route path="/login">
+            <Login />
+          </Route>
+        </Switch>
+      </Router>
+    </Provider>
   )
 }
 
