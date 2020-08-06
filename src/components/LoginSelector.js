@@ -43,7 +43,6 @@ const LoginSelector = ({ name, text, getDataAction, submitClicked }) => {
         <FormControl
             variant="outlined"
             className={classes.formControl}
-            fullWidth={true}
             error={!value && submitClicked ? true : false}
         >
             <InputLabel>{text}</InputLabel>
@@ -57,6 +56,7 @@ const LoginSelector = ({ name, text, getDataAction, submitClicked }) => {
                     ))
                 }
             </Select>
+
         </FormControl>
     )
 }
