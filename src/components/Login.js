@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useSelector, useDispatch } from "react-redux";
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 import { Grid, Button, Typography } from '@material-ui/core';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import LoginSelector from './LoginSelector';
 import { getDesks, getRoles } from '../MOCK';
 import { loginUser } from '../actions/user.actions';
@@ -18,6 +19,9 @@ const useStyles = makeStyles((theme) =>
         button: {
             minWidth: 300,
         },
+        iconSize: {
+            fontSize: "60px"
+        }
     }),
 );
 
@@ -51,6 +55,9 @@ const Login = () => {
             spacing={2}
             className={classes.container}
         >
+            <Grid item xs={12}>
+                <AccountCircleIcon className={classes.iconSize} color="primary" />
+            </Grid>
             <Grid item xs={12}>
                 <Typography variant="h4" color="primary" align="center">התחברות</Typography>
             </Grid>
