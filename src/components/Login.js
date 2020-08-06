@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useSelector, useDispatch } from "react-redux";
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 import { Grid, Button, Typography } from '@material-ui/core';
@@ -25,10 +25,19 @@ const Login = () => {
     const classes = useStyles();
 
     const dispatch = useDispatch();
-    const isLoggedIn = useSelector(state => state.user.isLoggedIn)
+    const isLoggedIn = useSelector(state => state.user.isLoggedIn);
+    const desk = useSelector(state => state.user.desk);
+    const role = useSelector(state => state.user.role);
+
+    const [submitClicked, setSubmitClicked] = useState(false);
 
     const onSubmit = () => {
-        dispatch(loginUser());
+        if (desk && role) {
+            dispatch(loginUser());
+            setSubmitClicked(false);
+        } else {
+            setSubmitClicked(true);
+        }
     }
 
     console.log("isLoggedIn", isLoggedIn);
@@ -50,6 +59,7 @@ const Login = () => {
                     name="desk"
                     text="בחר שולחן"
                     getDataAction={getDesks}
+                    submitClicked={submitClicked}
                 />
             </Grid>
             <Grid item xs={12}>
@@ -57,6 +67,7 @@ const Login = () => {
                     name="role"
                     text="בחר תפקיד"
                     getDataAction={getRoles}
+                    submitClicked={submitClicked}
                 />
             </Grid>
             <Grid item>

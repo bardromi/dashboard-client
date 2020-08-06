@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) =>
 );
 
 
-const LoginSelector = ({ name, text, getDataAction }) => {
+const LoginSelector = ({ name, text, getDataAction, submitClicked }) => {
     const classes = useStyles();
 
     const dispatch = useDispatch();
@@ -40,7 +40,12 @@ const LoginSelector = ({ name, text, getDataAction }) => {
     };
 
     return (
-        <FormControl variant="outlined" className={classes.formControl} fullWidth={true}>
+        <FormControl
+            variant="outlined"
+            className={classes.formControl}
+            fullWidth={true}
+            error={!value && submitClicked ? true : false}
+        >
             <InputLabel>{text}</InputLabel>
             <Select
                 onChange={handleFormChange}
